@@ -42,6 +42,8 @@ class MyApp extends StatelessWidget {
   Future<void> firebaseTasks() async {
     FirebaseMessaging.instance.getToken().then((value) {
     });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    });
   }
 }
 
