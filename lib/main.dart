@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,16 +17,31 @@ class MyApp extends StatelessWidget {
             return CircularProgressIndicator();
           }
           if (snapshot.connectionState == ConnectionState.done) {
-            return MaterialApp(
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: MyHomePage(title: 'Flutter Demo Home Page'),
-            );
+            return FutureBuilder(
+                future: firebaseTasks(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return CircularProgressIndicator();
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return MaterialApp(
+                      title: 'Flutter Demo',
+                      theme: ThemeData(
+                        primarySwatch: Colors.blue,
+                      ),
+                      home: MyHomePage(title: 'Flutter Demo Home Page'),
+                    );
+                  }
+                  return CircularProgressIndicator();
+                });
           }
           return CircularProgressIndicator();
         });
+  }
+
+  Future<void> firebaseTasks() async {
+    FirebaseMessaging.instance.getToken().then((value) {
+    });
   }
 }
 
