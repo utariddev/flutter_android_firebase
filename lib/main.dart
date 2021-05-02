@@ -2,6 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+}
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
@@ -40,8 +43,12 @@ class MyApp extends StatelessWidget {
   }
 
   Future<void> firebaseTasks() async {
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
     FirebaseMessaging.instance.getToken().then((value) {
     });
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     });
   }
